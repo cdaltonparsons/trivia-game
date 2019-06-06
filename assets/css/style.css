@@ -1,0 +1,16 @@
+body {
+    background: url(../images/fashion-geometric-style-neon-texture_24640-39569.jpg);
+}
+
+
+.jumbotron {
+    background: #43f98f;
+    color: black;
+    margin: 50px;
+}
+
+.container {
+    background: #43f98f;
+    color: black;
+    width: 800px;
+}
