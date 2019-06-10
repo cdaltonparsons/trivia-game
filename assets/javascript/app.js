@@ -1,3 +1,4 @@
+var number = 30;
 var questions = [
   {
     question:
@@ -65,28 +66,50 @@ var questions = [
     correctAnswer: "d"
   }
 ];
+var countdown;
+function clockStart() {
+  clearInterval(countdown);
+  showQuestions();
+  var countdown = setInterval(decrement, 1000)
+}
 
-function showQuestions(questions) {
-    var output = [];
-    var answers;
+function decrement () {
+  $("#clock").html("<h2>" + number + "</h2>");
+  if (number === 0) {
+    reset()
+    $("#clock").hide()
+    alert("time's up")
+  }
+  number--
 
-    for (var i = 0; i < questions.length; i++) {
-      answers = [];
+}
 
-      for (letter in questions[i].answers) {
-        answers.push(" <label>" + ' <input type="radio" name="question' + i +' " value="' + letter + ' " > ' + letter + " : " + questions[i].answers[letter] + " </label>"
-        );
-      }
+function reset (){
+  clearInterval(countdown);
+  showQuestions()
+}
 
-      output.push('<div class="question">' + questions[i].question + "</div>" + '<div class="answers">' + answers.join("") + "</div>"
-      );
-    }
+function showQuestions(){
+	
+	var output = [];
+	var answers;
 
-    $("#quizContainer").html(output.join(""))
-  };
+	for(var i=0; i<questions.length; i++){
+		
+		answers = [];
 
+		for(letter in questions[i].answers){
 
-function showResults(questions) {
+			answers.push(
+				'<label>'	+ '<input type="radio" name="question'+i+'" value="' + letter + '">'	+ letter + ': '	+ questions[i].answers[letter]	+ '</label>');
+		}
+		output.push(	'<div class="question">' + questions[i].question + '</div>'	+ '<div class="answers">' + answers.join('') + '</div>');
+	}
+
+	$("#quizContainer").html(output)
+}
+
+function showResults() {
   var answerContainers = quizContainer.querySelectorAll(".answers");
 
   var userAnswer = "";
@@ -96,20 +119,24 @@ function showResults(questions) {
     userAnswer = (answerContainers[i].querySelector("input[name=question" + i + "]:checked") || {} ).value;
 
     if (userAnswer === questions[i].correctAnswer) {
-      numCorrect++;
-
-      answerContainers[i].style.color = "lightgreen";
+      answerContainers[i].style.color = "purple";
+      numCorrect++
     } else {
       answerContainers[i].style.color = "red";
     }
   }
 
-  $("#resultsContainer").html(numCorrect + " out of " + questions.length)
+  alert(numCorrect + " out of " + questions.length + "correct")
 }
 
-showQuestions(questions);
+
+$("#startButton").on("click", function () {
+  clockStart();
+  showQuestions();
+})
 
 $("#submitButton").on("click", function () {
-  showResults(questions, quizContainer, resultsContainer)
+  showResults(questions);
+  reset ();
 });
 

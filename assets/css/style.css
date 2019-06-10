@@ -9,9 +9,13 @@ body {
     margin: 50px;
 }
 
-#quizContainer {
+#quizContainer, #resultsContainer {
     background: #43f98f;
     color: black;
     width: 800px;
-    margin: 50px;
+    margin: 25px 50px 0 25px;
+}
+
+#submitButton, #startButton {
+    margin: 5px 50px;
 }
