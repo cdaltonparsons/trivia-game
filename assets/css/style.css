@@ -9,8 +9,9 @@ body {
     margin: 50px;
 }
 
-.container {
+#quizContainer {
     background: #43f98f;
     color: black;
     width: 800px;
+    margin: 50px;
 }
