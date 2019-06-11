@@ -1,4 +1,4 @@
-var number = 30;
+var number = 5;
 var questions = [
   {
     question:
@@ -77,8 +77,8 @@ function decrement() {
   $("#clock").html("<h2>" + number + "</h2>");
   if (number === 0) {
     reset();
-    $("#clock").hide();
     alert("time's up");
+    showResults(questions);
   }
   number--;
 }
@@ -86,6 +86,7 @@ function decrement() {
 function reset() {
   clearInterval(countdown);
   showQuestions();
+  number = 5;
 }
 
 function showQuestions() {
@@ -154,5 +155,4 @@ $("#startButton").on("click", function() {
 $("#submitButton").on("click", function() {
   showResults(questions);
   reset();
-  $("#clock").hide();
 });
