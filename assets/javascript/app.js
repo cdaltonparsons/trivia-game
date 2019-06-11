@@ -70,7 +70,7 @@ var countdown;
 function clockStart() {
   clearInterval(countdown);
   showQuestions();
-  var countdown = setInterval(decrement, 1000)
+  countdown = setInterval(decrement, 1000)
 }
 
 function decrement () {
@@ -138,5 +138,6 @@ $("#startButton").on("click", function () {
 $("#submitButton").on("click", function () {
   showResults(questions);
   reset ();
+  $("#clock").hide();
 });
 
