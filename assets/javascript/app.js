@@ -70,43 +70,56 @@ var countdown;
 function clockStart() {
   clearInterval(countdown);
   showQuestions();
-  countdown = setInterval(decrement, 1000)
+  countdown = setInterval(decrement, 1000);
 }
 
-function decrement () {
+function decrement() {
   $("#clock").html("<h2>" + number + "</h2>");
   if (number === 0) {
-    reset()
-    $("#clock").hide()
-    alert("time's up")
+    reset();
+    $("#clock").hide();
+    alert("time's up");
   }
-  number--
-
+  number--;
 }
 
-function reset (){
+function reset() {
   clearInterval(countdown);
-  showQuestions()
+  showQuestions();
 }
 
-function showQuestions(){
-	
-	var output = [];
-	var answers;
+function showQuestions() {
+  var output = [];
+  var answers;
 
-	for(var i=0; i<questions.length; i++){
-		
-		answers = [];
+  for (var i = 0; i < questions.length; i++) {
+    answers = [];
 
-		for(letter in questions[i].answers){
+    for (letter in questions[i].answers) {
+      answers.push(
+        "<label>" +
+          '<input type="radio" name="question' +
+          i +
+          '" value="' +
+          letter +
+          '">' +
+          letter +
+          ": " +
+          questions[i].answers[letter] +
+          "</label>"
+      );
+    }
+    output.push(
+      '<div class="question">' +
+        questions[i].question +
+        "</div>" +
+        '<div class="answers">' +
+        answers.join("") +
+        "</div>"
+    );
+  }
 
-			answers.push(
-				'<label>'	+ '<input type="radio" name="question'+i+'" value="' + letter + '">'	+ letter + ': '	+ questions[i].answers[letter]	+ '</label>');
-		}
-		output.push(	'<div class="question">' + questions[i].question + '</div>'	+ '<div class="answers">' + answers.join('') + '</div>');
-	}
-
-	$("#quizContainer").html(output)
+  $("#quizContainer").html(output);
 }
 
 function showResults() {
@@ -116,28 +129,30 @@ function showResults() {
   var numCorrect = 0;
 
   for (var i = 0; i < questions.length; i++) {
-    userAnswer = (answerContainers[i].querySelector("input[name=question" + i + "]:checked") || {} ).value;
+    userAnswer = (
+      answerContainers[i].querySelector(
+        "input[name=question" + i + "]:checked"
+      ) || {}
+    ).value;
 
     if (userAnswer === questions[i].correctAnswer) {
       answerContainers[i].style.color = "purple";
-      numCorrect++
+      numCorrect++;
     } else {
       answerContainers[i].style.color = "red";
     }
   }
 
-  alert(numCorrect + " out of " + questions.length + "correct")
+  alert(numCorrect + " out of " + questions.length + "correct");
 }
 
-
-$("#startButton").on("click", function () {
+$("#startButton").on("click", function() {
   clockStart();
   showQuestions();
-})
-
-$("#submitButton").on("click", function () {
-  showResults(questions);
-  reset ();
-  $("#clock").hide();
 });
 
+$("#submitButton").on("click", function() {
+  showResults(questions);
+  reset();
+  $("#clock").hide();
+});
