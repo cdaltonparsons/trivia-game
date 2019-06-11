@@ -76,9 +76,9 @@ function clockStart() {
 function decrement() {
   $("#clock").html("<h2>" + number + "</h2>");
   if (number === 0) {
+    showResults(questions);
     reset();
     alert("time's up");
-    showResults(questions);
   }
   number--;
 }
