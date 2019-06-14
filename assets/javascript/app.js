@@ -1,4 +1,4 @@
-var number = 5;
+var number = 30;
 var questions = [
   {
     question:
@@ -86,7 +86,7 @@ function decrement() {
 function reset() {
   clearInterval(countdown);
   showQuestions();
-  number = 5;
+  number = 30;
 }
 
 function showQuestions() {
